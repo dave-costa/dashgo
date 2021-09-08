@@ -6,7 +6,7 @@ const generateUsers = (number) => {
     users.push({
       id: number,
       name: faker.name.firstName(),
-      email: faker.internet.email(),
+      email: faker.internet.email().toLowerCase(),
       created_at: faker.date.recent(10),
     });
     number--;

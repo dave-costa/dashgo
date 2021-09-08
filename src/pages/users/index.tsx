@@ -19,23 +19,13 @@ import React from "react";
 import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
-import { useQuery } from "react-query";
 import { SideBar } from "../../components/SideBar/SideBar";
 
 import Link from "next/link";
-import { client } from "../../services/axios";
+import { useQueryHook } from "../../services/hooks/useUsers";
 
 export default function UserList() {
-  const { data, isLoading, isFetching, error } = useQuery(
-    "users",
-    async () => {
-      const response = await client.get("myapi");
-      return response.data;
-    },
-    {
-      staleTime: 1000 * 5,
-    }
-  );
+  const { data, error, isLoading, isFetching } = useQueryHook();
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
