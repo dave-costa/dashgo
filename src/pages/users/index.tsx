@@ -18,7 +18,7 @@ import {
 import React from "react";
 import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
-import { Pagination } from "../../components/Pagination";
+import { Pagination } from "../../components/pagination/Pagination";
 import { SideBar } from "../../components/SideBar/SideBar";
 
 import Link from "next/link";
