@@ -4,6 +4,7 @@ import {
   Checkbox,
   Flex,
   Heading,
+  Link as Links,
   Icon,
   Table,
   Tbody,
@@ -20,9 +21,10 @@ import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/pagination/Pagination";
 import { SideBar } from "../../components/SideBar/SideBar";
-
+import { queryClient } from "../../services/queryClient";
 import Link from "next/link";
 import { useQueryHook } from "../../services/hooks/useUsers";
+import { client } from "../../services/axios";
 
 export default function UserList() {
   const { data, error, isLoading, isFetching } = useQueryHook();
@@ -31,6 +33,18 @@ export default function UserList() {
     lg: true,
   });
 
+  function handlePrefetch(id: number) {
+    queryClient.prefetchQuery(
+      ["users", id],
+      async () => {
+        const response = await client.get(`/myapi/${id}`);
+        return response.data;
+      },
+      {
+        staleTime: 1000 * 35,
+      }
+    );
+  }
   return (
     <Box>
       <Header />
@@ -86,7 +100,12 @@ export default function UserList() {
                       </Td>
                       <Td>
                         <Box>
-                          <Text fontWeight="bold">{user.name}</Text>
+                          <Links
+                            color="purple.400"
+                            onMouseEnter={() => handlePrefetch(user.id)}
+                          >
+                            <Text fontWeight="bold">{user.name}</Text>
+                          </Links>
                           <Text fontSize="sm" color="gray.300">
                             {user.email}
                           </Text>

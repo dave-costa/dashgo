@@ -47,7 +47,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
       return response.data;
     },
     {
-      staleTime: 1000 * 5,
+      staleTime: 1000 * 35,
     }
   );
   return (

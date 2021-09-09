@@ -2,10 +2,10 @@ import { AppProps } from "next/app";
 import { SideBarProvider } from "../components/context/SideBarContext";
 import { theme } from "../styles/theme";
 import { ChakraProvider } from "@chakra-ui/react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryProvider } from "../services/hooks/useUsers";
-const queryClient = new QueryClient();
+import { queryClient } from "../services/queryClient";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
