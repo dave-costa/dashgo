@@ -113,9 +113,9 @@ export default function UserList() {
                       </Td>
                       {isWideVersion && (
                         <Td>
-                          {new Intl.DateTimeFormat("pt-BR").format(
-                            new Date(user.created_at)
-                          )}
+                          {new Intl.DateTimeFormat("pt-BR", {
+                            dateStyle: "long",
+                          }).format(new Date(user.created_at))}
                         </Td>
                       )}
                     </Tr>

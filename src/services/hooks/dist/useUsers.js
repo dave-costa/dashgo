@@ -60,7 +60,7 @@ function QueryProvider(_a) {
                 case 0: return [4 /*yield*/, axios_1.client.get("myapi")];
                 case 1:
                     pre_request = _a.sent();
-                    setTotalPages(Math.ceil(pre_request.data.length / 4));
+                    setTotalPages(Math.ceil(pre_request.data.length / 4)); // for pagination
                     return [4 /*yield*/, axios_1.client.get("myapi?_page=" + page + "&_limit=4")];
                 case 2:
                     response = _a.sent();

@@ -20,6 +20,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { client } from "../../services/axios";
+import { queryClient } from "../../services/queryClient";
+import { useRouter } from "next/router";
 
 type TData = {
   name: string;
@@ -46,12 +48,20 @@ const createUserForSchema = yup.object().shape({
 });
 
 export default function CreateUser() {
-  const createUser = useMutation(async (user: TData) => {
-    const response = await client.post("/myapi", {
-      ...user,
-      created_at: new Date(),
-    });
-  });
+  const router = useRouter();
+  const createUser = useMutation(
+    async (user: TData) => {
+      const response = await client.post("/myapi", {
+        ...user,
+        created_at: new Date(),
+      });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("users");
+      },
+    }
+  );
 
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(createUserForSchema),
@@ -61,6 +71,7 @@ export default function CreateUser() {
   const handleCreateUser: SubmitHandler<TData> = async (values, event) => {
     event.preventDefault();
     await createUser.mutateAsync(values);
+    router.push("/users");
   };
   return (
     <Box>
