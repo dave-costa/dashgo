@@ -13,4 +13,4 @@ const generateUsers = (number) => {
   }
   return users;
 };
-fs.writeFileSync("./db.json", JSON.stringify({ myapi: generateUsers(200) }));
+fs.writeFileSync("./db.json", JSON.stringify({ myapi: generateUsers(17) }));

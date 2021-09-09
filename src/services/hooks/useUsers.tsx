@@ -42,7 +42,8 @@ export function QueryProvider({ children }: QueryProviderProps) {
     ["users", page],
     async () => {
       const pre_request = await client.get("myapi");
-      setTotalPages(pre_request.data.length / 4);
+
+      setTotalPages(Math.ceil(pre_request.data.length / 4));
       const response = await client.get(`myapi?_page=${page}&_limit=4`);
       return response.data;
     },
